@@ -1,0 +1,8 @@
+.product-card {
+    display: flex;
+    flex-direction: column;
+}
+
+.product-price {
+    font-size: 1.4rem;
+}
