@@ -1,0 +1,22 @@
+.cart {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    cursor: pointer;
+    z-index: 5;
+    padding: 1rem;
+
+    display: flex;
+    align-items: center;
+}
+
+.cart-quantity {
+    margin-left: .6rem;
+}
+
+@media (min-width: 767px) {
+    .cart {
+        top: 6rem;
+        bottom: unset;
+    }
+}
