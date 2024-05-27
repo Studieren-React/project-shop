@@ -10,3 +10,4 @@ export * from './shop.interface.ts';
 export * from './styles.interface.ts';
 export * from './type.interface.ts';
 export * from './update.interface.ts';
+export * from './order.type.ts';
