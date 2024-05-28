@@ -3,8 +3,8 @@ import { ProductItem } from './ProductItem';
 import { IShop } from '../../../types';
 
 interface ProductsListProps {
-  products: IShop[];
-  addToCart: (order: IShop) => void;
+  products: IShop[],
+  addToCart: (order: IShop) => void
 }
 
 export function ProductsList({ products = [], addToCart }: ProductsListProps) {

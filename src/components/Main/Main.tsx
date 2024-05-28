@@ -34,6 +34,13 @@ export function Main() {
     }
   };
 
+  const removeFromCart = (id: string): void => {
+    setOrders((prevState: TOrder[]) => ({
+      ...prevState.filter((order: TOrder) => order.mainId !== id),
+      })
+    )
+  }
+
   useEffect((): void => {
     setLoading(true);
     getProducts().then(() => setLoading(false));
@@ -41,11 +48,17 @@ export function Main() {
 
   return (
     <main className="content container">
-      <Cart quantity={orders.length} />
+      <Cart
+        quantity={orders.length}
+        removeFromCart={removeFromCart}
+      />
       {loading ? (
         <Preloader />
       ) : (
-        <ProductsList products={products} addToCart={addToCart} />
+        <ProductsList
+          products={products}
+          addToCart={addToCart}
+        />
       )}
     </main>
   );
