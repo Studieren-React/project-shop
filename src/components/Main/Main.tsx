@@ -5,6 +5,7 @@ import { ProductsList } from './ProductsList';
 import { IShop, TOrder } from '../../types';
 import { Cart } from '../Cart';
 import { BasketList } from '../BasketList';
+import { EDirection } from '../../enums';
 
 export function Main() {
   const [products, setProducts] = useState<IShop[]>([]);
@@ -44,6 +45,34 @@ export function Main() {
     setVisibleBasket(!isVisibleBasket);
   }
 
+  const handleProduct = (id: string, direction: EDirection): void => {
+    const findOrder: TOrder | undefined = orders.find((order: TOrder) => order.mainId === id);
+
+    if (findOrder) {
+      // increase product quantity
+      if (direction === EDirection.Add) {
+        findOrder.qty += 1;
+        setOrders([...new Set([...orders, findOrder])]);
+
+        return;
+      }
+
+      // decrease product quantity or remove product
+      if (direction === EDirection.Remove) {
+        findOrder.qty -= 1;
+
+        // remove product
+        if (findOrder.qty <= 0) {
+          removeFromCart(id);
+
+          return;
+        }
+
+        setOrders([...new Set([...orders, findOrder])]);
+      }
+    }
+  }
+
   useEffect((): void => {
     setLoading(true);
     getProducts().then(() => setLoading(false));
@@ -67,6 +96,7 @@ export function Main() {
           orders={orders}
           handleVisibleBasket={handleVisibleBasket}
           removeFromCart={removeFromCart}
+          handleProduct={handleProduct}
         />
       }
     </main>

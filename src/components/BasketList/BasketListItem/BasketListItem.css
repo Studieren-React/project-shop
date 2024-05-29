@@ -1,3 +1,11 @@
 .basket-list-item {
     cursor: pointer;
 }
+
+.collection-item-right-5 {
+    margin-right: 5px;
+}
+
+.collection-item-right-10 {
+    margin-right: 10px;
+}

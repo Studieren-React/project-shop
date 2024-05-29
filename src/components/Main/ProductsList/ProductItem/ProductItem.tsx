@@ -30,7 +30,7 @@ export function ProductItem({ product, addToCart }: ProductItemProps) {
           >
             Buy!
           </button>
-          <span className="right product-price">{regularPrice}</span>
+          <span className="right product-price">${regularPrice}</span>
         </div>
       </div>
     </div>
