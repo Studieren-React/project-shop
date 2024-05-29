@@ -4,11 +4,13 @@ import { Preloader } from '../Preloader';
 import { ProductsList } from './ProductsList';
 import { IShop, TOrder } from '../../types';
 import { Cart } from '../Cart';
+import { BasketList } from '../BasketList';
 
 export function Main() {
   const [products, setProducts] = useState<IShop[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [orders, setOrders] = useState<TOrder[]>([]);
+  const [isVisibleBasket, setVisibleBasket] = useState<boolean>(false);
 
   const getProducts = async (): Promise<void> => {
     const headers = new Headers({
@@ -35,10 +37,11 @@ export function Main() {
   };
 
   const removeFromCart = (id: string): void => {
-    setOrders((prevState: TOrder[]) => ({
-      ...prevState.filter((order: TOrder) => order.mainId !== id),
-      })
-    )
+    setOrders(orders.filter((order: TOrder) => order.mainId !== id));
+  }
+
+  const handleVisibleBasket = (): void => {
+    setVisibleBasket(!isVisibleBasket);
   }
 
   useEffect((): void => {
@@ -50,16 +53,22 @@ export function Main() {
     <main className="content container">
       <Cart
         quantity={orders.length}
-        removeFromCart={removeFromCart}
+        handleVisibleBasket={handleVisibleBasket}
       />
-      {loading ? (
-        <Preloader />
-      ) : (
-        <ProductsList
-          products={products}
-          addToCart={addToCart}
+      {
+        loading
+          ? <Preloader />
+          : <ProductsList
+              products={products}
+              addToCart={addToCart}
+            />
+      }
+      { isVisibleBasket && <BasketList
+          orders={orders}
+          handleVisibleBasket={handleVisibleBasket}
+          removeFromCart={removeFromCart}
         />
-      )}
+      }
     </main>
   );
 }
